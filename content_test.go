@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"io/ioutil"
+	"os"
 	"strings"
 	"testing"
 )
@@ -30,6 +31,9 @@ func TestCreateContentFromString(t *testing.T) {
 
 func TestCreateContentFromFile(t *testing.T) {
 	f, err := ioutil.TempFile("", "")
+	if f != nil {
+		defer os.Remove(f.Name())
+	}
 	ok(t, err)
 	_, err = f.Write([]byte("Line1\nLine2"))
 	ok(t, err)
