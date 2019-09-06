@@ -1,8 +1,11 @@
 package extedit
 
 type Diff struct {
-	Content     Content
-	Differences []int
+	content     Content
+
+// Content returns session output as a single string.
+func (d Diff) Content() string {
+	return d.content.String()
 }
 
 func (d Diff) Lines() []string {
