@@ -11,7 +11,7 @@ import (
 	"os/exec"
 )
 
-const default_editor = "vim"
+const defaultEditor = "vim"
 
 // Session represents
 type Session struct {
@@ -80,7 +80,7 @@ func writeTmpFile(content io.Reader) (string, error) {
 func editorCmd(filename string) *exec.Cmd {
 	editorPath := os.Getenv("EDITOR")
 	if editorPath == "" {
-		editorPath = default_editor
+		editorPath = defaultEditor
 	}
 	editor := exec.Command(editorPath, filename)
 
