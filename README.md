@@ -2,7 +2,6 @@
 
 Open an external editor as part of the user interface of a command-line programm. Think `git rebase -i`.
 
-
 ```go
 import (
     "strings"
@@ -14,7 +13,7 @@ func main() {
 
     diff := extedit.Invoke(input)
 
-    # diff.Lines() []string contains the edited input.
-    # diff.Differences []int  contains indexes of changed lines.
+    // diff.Lines() []string contains the edited input.
+    // diff.Differences []int  contains indexes of changed lines.
 }
 ```
