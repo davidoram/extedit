@@ -1,4 +1,4 @@
-// extedit provides functionality to open an editor with to let the user edit
+// Package extedit provides functionality to open an editor with to let the user edit
 // some content and get the changes the user made to process them as
 // part of the user iterface of a command line programm.
 package extedit
@@ -13,14 +13,14 @@ import (
 
 const defaultEditor = "vim"
 
-// Session represents
+// Session represents an extedit session.
 type Session struct {
 	input     Content
 	result    Content
 	SplitFunc bufio.SplitFunc
 }
 
-// Session.Invoke starts a text-editor with the contents of content.
+// Invoke starts a text-editor with the contents of content.
 // After the user has closed the editor Invoke returns an
 // io.Reader with the edited content.
 func (s *Session) Invoke(content io.Reader) (Diff, error) {
@@ -51,6 +51,7 @@ func (s *Session) Invoke(content io.Reader) (Diff, error) {
 	return NewDiff(input, result), nil
 }
 
+// NewSession constructs a new Session with a default SplitFunc value.
 func NewSession() *Session {
 	return &Session{SplitFunc: bufio.ScanLines}
 }
@@ -62,7 +63,7 @@ func Invoke(content io.Reader) (Diff, error) {
 }
 
 // writeTmpFile writes content to a temporary file and returns
-// the path to the file
+// the path to the file.
 func writeTmpFile(content io.Reader) (string, error) {
 	f, err := ioutil.TempFile("", "")
 
@@ -75,8 +76,8 @@ func writeTmpFile(content io.Reader) (string, error) {
 	return f.Name(), nil
 }
 
-// editorCmd creates a os/exec.Cmd to open
-// filename in an editor ready to be run()
+// editorCmd creates a os/exec.Cmd to open.
+// filename in an editor ready to be run().
 func editorCmd(filename string) *exec.Cmd {
 	editorPath := os.Getenv("EDITOR")
 	if editorPath == "" {
