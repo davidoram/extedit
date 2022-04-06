@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"os"
 	"os/exec"
+	"strings"
 )
 
 const defaultEditor = "vim"
@@ -79,11 +80,16 @@ func writeTmpFile(content io.Reader) (string, error) {
 // editorCmd creates a os/exec.Cmd to open.
 // filename in an editor ready to be run().
 func editorCmd(filename string) *exec.Cmd {
-	editorPath := os.Getenv("EDITOR")
-	if editorPath == "" {
-		editorPath = defaultEditor
+	editorEnvar := os.Getenv("EDITOR")
+	if editorEnvar == "" {
+		editorEnvar = defaultEditor
 	}
-	editor := exec.Command(editorPath, filename)
+	// editorEnvar might contain editor arguments which
+	// need to be split out eg: "code --wait --new-window"
+	editorArgs := strings.Split(editorEnvar, " ")
+	cmd, editorArgs := editorArgs[0], editorArgs[1:]
+	editorArgs = append(editorArgs, filename)
+	editor := exec.Command(cmd, editorArgs...)
 
 	editor.Stdin = os.Stdin
 	editor.Stdout = os.Stdout
