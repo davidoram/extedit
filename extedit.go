@@ -5,7 +5,6 @@ package extedit
 
 import (
 	"bufio"
-	"fmt"
 	"io"
 	"io/ioutil"
 	"os"
@@ -90,7 +89,7 @@ func editorCmd(filename string) *exec.Cmd {
 	editorArgs := strings.Split(editorEnvar, " ")
 	cmd, editorArgs := editorArgs[0], editorArgs[1:]
 	editorArgs = append(editorArgs, filename)
-	fmt.Printf("%s %s", cmd, editorArgs)
+
 	editor := exec.Command(cmd, editorArgs...)
 
 	editor.Stdin = os.Stdin
