@@ -5,7 +5,7 @@ Open an external editor as part of the user interface of a command-line programm
 ```go
 import (
     "strings"
-    "github.com/kioopi/extedit"
+    "github.com/davidoram/extedit"
 )
 
 func main() {
